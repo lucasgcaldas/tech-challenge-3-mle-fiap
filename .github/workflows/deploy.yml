@@ -24,12 +24,6 @@ jobs:
       - name: Install Node Dependencies
         run: npm i
 
-      - name: Install Dependencies
-        run: pip install playwright
-
-      - name: Install Playwright
-        run: playwright install 
-
       - name: Deploy to AWS
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
