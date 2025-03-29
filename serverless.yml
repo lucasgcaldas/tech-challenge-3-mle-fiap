@@ -11,6 +11,7 @@ provider:
   environment:
     AWS_ACCOUNT_ID: ${env:AWS_ACCOUNT_ID} 
     S3_BUCKET_NAME: s3-lab3-lucas
+    API_KEY: ${env:API_KEY}
 
   iam:
     role: arn:aws:iam::${self:provider.environment.AWS_ACCOUNT_ID}:role/LabRole
