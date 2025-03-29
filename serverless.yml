@@ -19,14 +19,6 @@ provider:
 plugins:
   - serverless-python-requirements
 
-custom:
-  pythonRequirements:
-    slim: true  # Remove arquivos desnecessários (ex.: testes, docs)
-    layer: true # Usa uma Lambda Layer para dependências grandes
-    dockerizePip: true  # Usa contêiner compatível com o ambiente do Lambda
-    useStaticCache: false
-    useDownloadCache: false
-
 package:
   exclude:
     - node_modules/**
