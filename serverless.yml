@@ -24,6 +24,12 @@ provider:
           Resource:
             - arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}  # Permission to list the bucket
             - arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}/*  # Permission to read/write objects inside the bucket
+        - Effect: Allow
+          Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+          Resource: arn:aws:logs:*:*:*
 
 plugins:
   - serverless-python-requirements
