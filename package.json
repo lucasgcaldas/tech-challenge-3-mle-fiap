@@ -1,0 +1,10 @@
+{
+  "name": "weather-ml-fiap",
+  "version": "1.0.0",
+  "description": "Tech Challenge 3 - Weather ML",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-python-requirements": "^6.0.0"
+  }
+}

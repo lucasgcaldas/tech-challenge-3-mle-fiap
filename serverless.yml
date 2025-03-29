@@ -1,0 +1,60 @@
+service: weather-ml-fiap
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.10
+  memorySize: 128
+  timeout: 30
+
+  environment:
+    AWS_ACCOUNT_ID: ${env:AWS_ACCOUNT_ID} 
+    S3_BUCKET_NAME: weather-data-bucket-${self:provider.stage}
+
+  iam:
+    role:
+      arn: arn:aws:iam::${self:provider.environment.AWS_ACCOUNT_ID}:role/LabRole
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:ListBucket
+          Resource:
+            - arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}  # Permission to list the bucket
+            - arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}/*  # Permission to read/write objects inside the bucket
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  exclude:
+    - node_modules/**
+
+functions:
+  collectWeatherLiveData:
+    handler: collect_weather/live_data.lambda_handler
+    events:
+      - schedule: rate(1 hour)
+
+  collectWeatherHistoricalData:
+    handler: collect_weather/historical_data.lambda_handler
+    events:
+      - http:
+          path: "historical"
+          method: "get"
+          cors: true
+
+  trainModel:
+    handler: train_model/model.lambda_handler
+    timeout: 600
+    memorySize: 1024
+    events:
+      - schedule: cron(0 3 * * ? *)
+
+resources:
+  Resources:
+    WeatherDataBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.S3_BUCKET_NAME}
