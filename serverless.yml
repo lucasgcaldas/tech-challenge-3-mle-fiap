@@ -10,27 +10,11 @@ provider:
 
   environment:
     AWS_ACCOUNT_ID: ${env:AWS_ACCOUNT_ID} 
-    S3_BUCKET_NAME: lab3-bucket-lucas-fiap
+    S3_BUCKET_NAME: s3-lab3-lucas
 
   iam:
-    role:
-      arn: arn:aws:iam::${self:provider.environment.AWS_ACCOUNT_ID}:role/LabRole
-      statements:
-        - Effect: Allow
-          Action:
-            - s3:PutObject
-            - s3:GetObject
-            - s3:ListBucket
-          Resource:
-            - arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}  # Permission to list the bucket
-            - arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}/*  # Permission to read/write objects inside the bucket
-        - Effect: Allow
-          Action:
-            - logs:CreateLogGroup
-            - logs:CreateLogStream
-            - logs:PutLogEvents
-          Resource: arn:aws:logs:*:*:*
-
+    role: arn:aws:iam::${self:provider.environment.AWS_ACCOUNT_ID}:role/LabRole
+    
 plugins:
   - serverless-python-requirements
 
@@ -58,10 +42,3 @@ functions:
     memorySize: 1024
     events:
       - schedule: cron(0 3 * * ? *)
-
-resources:
-  Resources:
-    Lab3BucketLucasFIAP:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:provider.environment.S3_BUCKET_NAME}
