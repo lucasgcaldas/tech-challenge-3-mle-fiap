@@ -10,7 +10,7 @@ provider:
 
   environment:
     AWS_ACCOUNT_ID: ${env:AWS_ACCOUNT_ID} 
-    S3_BUCKET_NAME: weather-data-bucket
+    S3_BUCKET_NAME: lab3-bucket-lucas-fiap
 
   iam:
     role:
@@ -55,7 +55,7 @@ functions:
 
 resources:
   Resources:
-    WeatherDataBucket:
+    Lab3BucketLucasFIAP:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.S3_BUCKET_NAME}
