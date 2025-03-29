@@ -25,18 +25,15 @@ package:
 
 custom:
   pythonRequirements:
-      useStaticCache: false
-      useDownloadCache: false
-      pipCmdExtraArgs:
-        - "--implementation cp"
-        - "--only-binary=:all:"
-        - "--upgrade"
+    layer: true
 
 functions:
   collectWeatherLiveData:
     handler: collect_weather/live_data.lambda_handler
     events:
       - schedule: rate(1 hour)
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
 
   collectWeatherHistoricalData:
     handler: collect_weather/historical_data.lambda_handler
@@ -45,6 +42,8 @@ functions:
           path: "historical"
           method: "get"
           cors: true
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
 
   trainModel:
     handler: train_model/model.lambda_handler
@@ -52,3 +51,5 @@ functions:
     memorySize: 1024
     events:
       - schedule: cron(0 3 * * ? *)
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
