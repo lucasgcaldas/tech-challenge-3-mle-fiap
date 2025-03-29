@@ -23,6 +23,15 @@ package:
   exclude:
     - node_modules/**
 
+custom:
+  pythonRequirements:
+      useStaticCache: false
+      useDownloadCache: false
+      pipCmdExtraArgs:
+        - "--implementation cp"
+        - "--only-binary=:all:"
+        - "--upgrade"
+
 functions:
   collectWeatherLiveData:
     handler: collect_weather/live_data.lambda_handler
