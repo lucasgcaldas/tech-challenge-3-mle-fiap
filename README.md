@@ -1,5 +1,9 @@
 # Tech Challenge 3 - Previsão de Chuva
 
+## Integrantes
+
+- Lucas Gomes - RM358850
+
 ## Descrição do Projeto
 
 Este projeto foi desenvolvido para atender ao **Tech Challenge**, no qual o objetivo era criar uma **API** para coleta de dados climáticos em tempo real e usá-los para treinar um modelo de **Machine Learning**. O modelo foi utilizado para prever a **precipitação (chuva)** nos próximos dias com base em dados históricos e condições atuais.
@@ -103,14 +107,17 @@ Onde:
      DB_PORT=5432
      DB_SCHEMA=<esquema-do-banco>
      ```
-
+ 
 3. **Rodando o Pipeline**:
    - Execute o **Airflow** para rodar o pipeline de coleta de dados e treinamento do modelo.
      ```bash
      airflow scheduler
      airflow webserver
      ```
-
+   - Ou Apenas 
+   ```bash
+   airflow standalone
+   ```
    - O pipeline será executado de acordo com a configuração do Airflow.
 
 4. **Acessando o Dashboard**:
@@ -136,4 +143,4 @@ Onde:
 
 Por favor, adicione o link do vídeo explicativo do seu projeto aqui:
 
-[Link para o vídeo explicativo](#)
+[Link para o vídeo explicativo](https://youtu.be/bN6YW0y-39Q)
